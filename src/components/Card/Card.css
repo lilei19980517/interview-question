@@ -1,0 +1,73 @@
+/* 自定义翻牌动画 */
+@keyframes backTurnOver
+{
+    from {transform: rotateY(0);}
+    to {transform: rotateY(180deg);z-index: -1;}
+}
+@keyframes imgTurnOver
+{
+    /*默认让图片反着，等下反过来就是正的 */
+    from {transform: rotateY(-180deg);}
+    to {transform: rotateY(180);}
+}
+/* 两张图片成功显示颜色标注一下 */
+@keyframes isOkShow
+{
+    0% {background-color: #f37923;}
+    100% {background-color: red;}
+}
+.Card {
+    width: 100%;
+    background-color: #069;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.Card .card-item{
+    width: 1.7rem;
+    height: 2.3rem;
+    margin-top: 0.1rem;
+    border-radius: 8%;
+    perspective: 1000px;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}/* 牌背面 */
+.card-item-back{
+    background-color: #f37923;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+}
+/* 牌带图案一面 */
+/* 已经成功配对的牌不需要效果 */
+.card-item-img,
+.card-item-img-ok{
+    display: block;
+    width: 90%;
+    height: 90%;
+    position: absolute  ;
+    top: 5%;
+    left: 5%;
+    backface-visibility: hidden;
+}
+/* 翻牌效果 */
+.card-item-act .card-item-back  {
+    animation: backTurnOver 1s;
+    animation-fill-mode: forwards;
+}
+.card-item-act .card-item-img  {
+    animation: imgTurnOver 1s;
+    animation-fill-mode: forwards;
+}
+/* 翻牌正确的效果 */
+.card-item-ok::before {
+    content:"";
+    display: block;
+    float: left;
+    width: 100%;
+    height: 100%;
+    background-color: red;
+    animation: isOkShow 2s;
+}
